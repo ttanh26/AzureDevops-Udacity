@@ -2,8 +2,8 @@ setup:
 	python3.7 -m venv ~/.udacity-devops
 
 install:
-	pip install --upgrade pip &&\
-		pip install -r requirements.txt
+	python3.7 -m pip install --upgrade pip &&\
+		python3.7 -m pip install -r requirements.txt
 
 test:
 	#python -m pytest -vv --cov=myrepolib tests/*.py
