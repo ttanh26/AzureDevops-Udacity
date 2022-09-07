@@ -1,22 +1,19 @@
-# Python to Linux Web App on Azure
-# Build your Python project and deploy it to Azure as a Linux Web App.
-# Change python version to one thats appropriate for your application.
-# https://docs.microsoft.com/azure/devops/pipelines/languages/python
-
+# Starter pipeline    
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
 trigger:
 - master
 
+# TODO: Replace the agent pool name
 pool: myAgent
 
 variables:
-  # Azure Resource Manager connection created during pipeline creation
+  # TODO: Replace the service connection name
   azureServiceConnectionId: 'Flask ML App Services'
-
-  # Web app name
+  
+  # TODO: Replace 'mywebapp193576' with the existing Web App name
   webAppName: 'flask-app-ml'
-
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
 
   # Environment name
   environmentName: 'flask-ml-service'
@@ -24,28 +21,24 @@ variables:
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
 
-  # Python version: 3.7
-  pythonVersion: '3.9'
-
 stages:
 - stage: Build
   displayName: Build stage
   jobs:
   - job: BuildJob
     pool: myAgent
-    steps:
-    - task: UsePythonVersion@0
-      inputs:
-        versionSpec: '$(pythonVersion)'
-      displayName: 'Use Python $(pythonVersion)'
-
+    steps:    
     - script: |
-        python3.9 -m pip install --upgrade pip
-        python3.9 -m pip install setup
-        python3.9 -m pip install -r requirements.txt
+        python3.7 -m pip install --upgrade pip
+        python3.7 -m pip install setup
+        python3.7 -m pip install -r requirements.txt
       workingDirectory: $(projectRoot)
-      displayName: "Install requirements"
-
+    - script: |
+        export PATH=$HOME/.local/bin:$PATH
+        make install
+        make lint
+      workingDirectory: $(projectRoot)
+      displayName: 'Run lint tests'
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
@@ -71,12 +64,6 @@ stages:
       runOnce:
         deploy:
           steps:
-
-          - task: UsePythonVersion@0
-            inputs:
-              versionSpec: '$(pythonVersion)'
-            displayName: 'Use Python version'
-
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App : flask-ml-service'
             inputs:
@@ -84,8 +71,5 @@ stages:
               appName: $(webAppName)
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
               appType: 'webAppLinux'
-              deployToSlotOrASE: true
-              resourceGroupName: 'Azuredevops'
-              slotName: 'production'
               runtimeStack: 'PYTHON|3.9'
               startUpCommand: 'python app.py'
