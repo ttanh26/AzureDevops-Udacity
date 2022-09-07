@@ -6,6 +6,8 @@
 trigger:
 - master
 
+pool: myAgent
+
 variables:
   # Azure Resource Manager connection created during pipeline creation
   azureServiceConnectionId: 'Flask ML App Services'
@@ -30,8 +32,7 @@ stages:
   displayName: Build stage
   jobs:
   - job: BuildJob
-    pool:
-      vmImage: $(vmImageName)
+    pool: myAgent
     steps:
     - task: UsePythonVersion@0
       inputs:
@@ -66,8 +67,7 @@ stages:
   condition: succeeded()
   jobs:
   - deployment: DeploymentJob
-    pool:
-      vmImage: $(vmImageName)
+    pool: myAgent
     environment: $(environmentName)
     strategy:
       runOnce:
