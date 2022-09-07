@@ -71,4 +71,4 @@ stages:
               appName: $(webAppName)
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
               appType: 'webAppLinux'
-
+              startUpCommand: 'python3.7 app.py'
