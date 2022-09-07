@@ -9,22 +9,73 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+variables:
+  # TODO: Replace the service connection name
+  azureServiceConnectionId: 'myserviceconnection'
+  
+  # TODO: Replace 'mywebapp193576' with the existing Web App name
+  webAppName: 'mywebapp193576'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-- task: AzureWebApp@1
-  inputs:
-    azureSubscription: 'Flask ML App Services'
-    appType: 'webAppLinux'
-    appName: 'flask-app-ml'
-    deployToSlotOrASE: true
-    resourceGroupName: 'Azuredevops'
-    slotName: 'production'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    runtimeStack: 'PYTHON|3.9'
-    startUpCommand: 'python app.py'
+  # Environment name
+  environmentName: 'flask-ml-service'
+
+  # Project root folder. Point to the folder containing manage.py file.
+  projectRoot: $(System.DefaultWorkingDirectory)
+
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:
+  - job: BuildJob
+    pool: vmImage
+    steps:    
+    - script: |
+        python3.9 -m pip install --upgrade pip
+        python3.9 -m pip install setup
+        python3.9 -m pip install -r requirements.txt
+      workingDirectory: $(projectRoot)
+
+    - script: |
+        export PATH=$HOME/.local/bin:$PATH
+        make install
+        make lint
+      workingDirectory: $(projectRoot)
+      displayName: 'Run lint tests'
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive files'
+      inputs:
+        rootFolderOrFile: '$(projectRoot)'
+        includeRootFolder: false
+        archiveType: zip
+        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        replaceExistingArchive: true
+
+    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+      displayName: 'Upload package'
+      artifact: drop
+
+- stage: Deploy
+  displayName: 'Deploy Web App'
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - deployment: DeploymentJob
+    pool: myAgentPool
+    environment: $(environmentName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App : flask-ml-service'
+            inputs:
+                  azureSubscription: 'Flask ML App Services'
+                  appType: 'webAppLinux'
+                  appName: 'flask-app-ml'
+                  deployToSlotOrASE: true
+                  resourceGroupName: 'Azuredevops'
+                  slotName: 'production'
+                  package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+                  runtimeStack: 'PYTHON|3.9'
+                  startUpCommand: 'python app.py'
