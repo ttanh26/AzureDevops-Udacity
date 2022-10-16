@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 trigger:
 - master
-
+- Azure
 # TODO: Replace the agent pool name
 pool: 'myAgentPool'
 
