@@ -13,7 +13,7 @@ variables:
   azureServiceConnectionId: 'myserviceconnetion'
   
   # TODO: Replace 'mywebapp193576' with the existing Web App name
-  webAppName: 'flask-app-ml'
+  webAppName: 'flask-ml-app'
 
   # # Environment name
   # environmentName: 'flask-ml-service'
@@ -65,7 +65,7 @@ stages:
         deploy:
           steps:
           - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App : flask-app-ml'
+            displayName: 'Deploy Azure Web App : flask-ml-app'
             inputs:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
