@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 trigger:
 - master
-
+- Azure
 # TODO: Replace the agent pool name
 pool: 'myAgentPool'
 
@@ -58,7 +58,7 @@ stages:
   condition: succeeded()
   jobs:
   - deployment: DeploymentJob
-    pool: myAgent
+    pool: myAgentPool
     environment: $(environmentName)
     strategy:
       runOnce:
