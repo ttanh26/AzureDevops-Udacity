@@ -70,7 +70,7 @@ stages:
         deploy:
           steps:
           - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App : flask-ml-ml'
+            displayName: 'Deploy Azure Web App : flask-app-ml'
             inputs:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
