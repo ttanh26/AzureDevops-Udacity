@@ -15,8 +15,8 @@ variables:
   # TODO: Replace 'mywebapp193576' with the existing Web App name
   webAppName: 'flask-app-ml'
 
-  # Environment name
-  environmentName: 'flask-ml-service'
+  # # Environment name
+  # environmentName: 'flask-ml-service'
 
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
@@ -27,7 +27,12 @@ stages:
   jobs:
   - job: BuildJob
     pool: myAgentPool
-    steps:    
+    steps: 
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(pythonVersion)'
+      displayName: 'Use Python $(pythonVersion)'
+   
     - script: |
         python3.7 -m pip install --upgrade pip
         python3.7 -m pip install setup
