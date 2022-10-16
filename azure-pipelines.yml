@@ -6,7 +6,8 @@ trigger:
 - master
 
 # TODO: Replace the agent pool name
-pool: myAgentPool
+pool: 
+  name: 'myAgentPool'
 
 variables:
   # TODO: Replace the service connection name
