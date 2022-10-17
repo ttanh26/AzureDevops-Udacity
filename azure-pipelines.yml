@@ -72,3 +72,4 @@ stages:
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
               appType: 'webAppLinux'
               startUpCommand: 'python3.7 app.py'
+              AppSettings: '-WEBSITES_CONTAINER_START_TIME_LIMIT "600"'
