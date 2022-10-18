@@ -5,8 +5,8 @@
 ## Project Plan
 <TODO: Project Plan
 
-* A link to a Trello board for the project: https://trello.com/b/h2l3aabo/azure-devops-project-2
-* A link to a spreadsheet that includes the original and final project plan>
+* Trello board for the project: https://trello.com/b/h2l3aabo/azure-devops-project-2
+* Spreadsheet for the original and final project plan: https://docs.google.com/spreadsheets/d/1eqNchFjEEeegu5_OV40iQpWq6YAhN0QuGGe7r99RU_k/edit?usp=sharing
 
 ## Instructions
 
