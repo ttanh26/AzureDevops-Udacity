@@ -57,10 +57,23 @@ For example, when you have some changes on `README.md` file. The `pythonapp` wor
 
 ## Implement CD with Azure Pipelines
 ### Architecture diagram
-![CD flows](https://file%2B.vscode-resource.vscode-cdn.net/d%3A/Code/Projects/Azure/nd082-Azure-Cloud-DevOps-Starter-Code/C2-AgileDevelopmentwithAzure/AzureDevops-Udacity/cd-diagram.png?version%3D1670053728429)
+![CD flows](cd-diagram.png)
 
 ### Instructions
-<TODO:  Instructions for running the Python project.  How could a user with no context run this project without asking you for any help.  Include screenshots with explicit steps to create that work. Be sure to at least include the following screenshots:
+#### Manually deploy Web App
+Before implementing CD with Azure Pipelines, we need to deploy the web application first. If not, the CD flows can not run successfully.
+
+To create a new web app, make sure that your terminal is connecting with Azure Portal and your current working folder is your root folder. Then, you can execute `host_webapp.sh` script to deploy your web application to Azure.
+Or, you can run the below command:
+`az webapp up -n <name of webapp> --location southcentralus --sku B1 --runtime "Python3.7"`
+
+#### Setup Azure Pipelines
+Please follow these steps to successfully setup Continuous Delivery with Azure Pipelines
+* Login to Azure Devops with your Azure account. If this is your first time using Azure Devops, you will need to create an organization to manage your pipelines. 
+* In your new organization, go to Organization settings -> Policies to enable `Allow public projects` option.
+* Create new project with your custom name (i.e: azuredevops-proj2) with public mode.
+* Go to Project settings -> service connection and create a new service connection named `myserviceconnection` with Azure Resource Manager type. For detailed instructions, please check out the Youtube link below.
+* If you're using Udacity Cloud lab for this project, you will have to create a Linux self-hosted agent to be able to run Azure Pipelines. For instructions how to create self-hosted agent, you can check out [here](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/v2-linux?view=azure-devops) or you can follow the instructions in the Youtube link.
 
 * Project running on Azure App Service
 
