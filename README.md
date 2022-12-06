@@ -70,35 +70,16 @@ Or, you can run the below command:
 #### Setup Azure Pipelines
 Please follow these steps to successfully setup Continuous Delivery with Azure Pipelines
 * Login to Azure Devops with your Azure account. If this is your first time using Azure Devops, you will need to create an organization to manage your pipelines. 
-* In your new organization, go to Organization settings -> Policies to enable `Allow public projects` option.
+* In your new organization, go to Organization settings --> Policies to enable `Allow public projects` option.
 * Create new project with your custom name (i.e: azuredevops-proj2) with public mode.
-* Go to Project settings -> service connection and create a new service connection named `myserviceconnection` with Azure Resource Manager type. For detailed instructions, please check out the Youtube link below.
-* If you're using Udacity Cloud lab for this project, you will have to create a Linux self-hosted agent to be able to run Azure Pipelines. For instructions how to create self-hosted agent, you can check out [here](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/v2-linux?view=azure-devops) or you can follow the instructions in the Youtube link.
+* Go to Project settings --> service connection and create a new service connection named `myserviceconnection` with Azure Resource Manager type. For detailed instructions, please check out the Youtube link below.
+* If you're using Udacity Cloud lab for this project, you will have to create a Linux self-hosted agent to be able to run Azure Pipelines. For instructions on how to create self-hosted agent, you can check out [here](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/v2-linux?view=azure-devops) or you can follow the instructions in the Youtube link.
 
-* Project running on Azure App Service
+* In your Project in Azure Devops, go to `Pipelines` --> `New Pipeline` --> `Github` --> `Select your repo` --> `Existing Azure Pipeline YAML File` --> choose your brach (i.e: `master`) & choose path to yaml file --> `Continue` 
+> *Note: In case you're using different name for agent pool, service connection or web application, you need to follow TODO comment to update your new resource's name to this YAML file.*
 
-* Project cloned into Azure Cloud Shell
+* Choose `Save and run` to save your latest changes for this pipeline and run the pipeline.
 
-* Passing tests that are displayed after running the `make all` command from the `Makefile`
-
-* Output of a test run
-
-* Successful deploy of the project in Azure Pipelines.  [Note the official documentation should be referred to and double checked as you setup CI/CD](https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/python-webapp?view=azure-devops).
-
-* Running Azure App Service from Azure Pipelines automatic deployment
-
-* Successful prediction from deployed flask app in Azure Cloud Shell.  [Use this file as a template for the deployed prediction](https://github.com/udacity/nd082-Azure-Cloud-DevOps-Starter-Code/blob/master/C2-AgileDevelopmentwithAzure/project/starter_files/flask-sklearn/make_predict_azure_app.sh).
-The output should look similar to this:
-
-```bash
-udacity@Azure:~$ ./make_predict_azure_app.sh
-Port: 443
-{"prediction":[20.35373177134412]}
-```
-
-* Output of streamed log files from deployed application
-
-> 
 
 ## Enhancements
 
@@ -107,5 +88,3 @@ Port: 443
 ## Demo 
 
 <TODO: Add link Screencast on YouTube>
-
-
