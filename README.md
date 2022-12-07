@@ -75,11 +75,25 @@ Please follow these steps to successfully setup Continuous Delivery with Azure P
 * Go to Project settings --> service connection and create a new service connection named `myserviceconnection` with Azure Resource Manager type. For detailed instructions, please check out the Youtube link below.
 * If you're using Udacity Cloud lab for this project, you will have to create a Linux self-hosted agent to be able to run Azure Pipelines. For instructions on how to create self-hosted agent, you can check out [here](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/v2-linux?view=azure-devops) or you can follow the instructions in the Youtube link.
 
-* In your Project in Azure Devops, go to `Pipelines` --> `New Pipeline` --> `Github` --> `Select your repo` --> `Existing Azure Pipeline YAML File` --> choose your brach (i.e: `master`) & choose path to yaml file --> `Continue` 
+* In your Project in Azure Devops, go to `Pipelines` --> `New Pipeline` --> `Github` --> `Select your repo` --> `Existing Azure Pipeline YAML File` --> choose your brach (i.e: `master`) & choose path to `azure-pipeline.yaml` file --> `Continue` 
 > *Note: In case you're using different name for agent pool, service connection or web application, you need to follow TODO comment to update your new resource's name to this YAML file.*
 
-* Choose `Save and run` to save your latest changes for this pipeline and run the pipeline.
+* Choose `Save and run` to save your latest changes for this pipeline and run the pipeline. Your pipeline will start to run
 
+* Whenever a new change is updated to this repo, it will triggered the pipeline running again to deploy new change to your application
+
+* After the deployment is successfully, you can check your web app running via the URL `https://<name of webapp>.azurewebsites.net`, with `<name of webapp>` is the name of web application you deployed manualy earlier.
+
+* Update the file make_predict_azure_app.sh with your webapp service end point (your web app URL)
+
+* Run `make_predict_auzre_app.sh` script to start make prediction using your flask application. The response would be something like below
+
+* Execute a Load Testing with Locust by running the `loadtest.sh` script:
+```bash
+./loadtest.sh
+```
+
+* To look deeper for how your web app is running under the hood, you can check the log tail with `az webapp log tail -n <name of webapp> -g <resrouce-group-id>` command or with the Azure Portal
 
 ## Enhancements
 
