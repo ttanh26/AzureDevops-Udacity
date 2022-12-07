@@ -1,4 +1,5 @@
 # Overview
+[Github Action Badge](https://github.com/github/docs/actions/workflows/pythonapp.yml/badge.svg?branch=master)
 
 In this project, we are going to build a Flask application to predict Boston house's price and implement CICD using Azure Pipelines.
 
