@@ -96,8 +96,8 @@ Please follow these steps to successfully setup Continuous Delivery with Azure P
 * To look deeper for how your web app is running under the hood, you can check the log tail with `az webapp log tail -n <name of webapp> -g <resrouce-group-id>` command or with the Azure Portal
 
 ## Enhancements
-
-<TODO: A short description of how to improve the project in the future>
+* Adding more test cases (Regression Testing, Performance Testing, UI Testing)
+* Add Load Testing into Azure Pipelines instead of running the script manually.
 
 ## Demo 
 
