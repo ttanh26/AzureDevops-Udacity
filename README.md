@@ -1,5 +1,5 @@
 # Overview
-[Github Action Badge](https://github.com/ttanh26/AzureDevops-Udacity/actions/workflows/pythonapp.yml/badge.svg)
+![Github Action Badge](https://github.com/ttanh26/AzureDevops-Udacity/actions/workflows/pythonapp.yml/badge.svg?branch=github-action-ci)
 
 In this project, we are going to build a Flask application to predict Boston house's price and implement CICD using Azure Pipelines.
 
