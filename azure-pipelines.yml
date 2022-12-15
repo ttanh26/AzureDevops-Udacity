@@ -4,7 +4,6 @@
 # https://aka.ms/yaml
 trigger:
 - master
-- Azure
 # TODO: Replace the agent pool name
 pool: 'myAgentPool'
 
@@ -13,7 +12,7 @@ variables:
   azureServiceConnectionId: 'myserviceconnection'
   
   # TODO: Replace 'mywebapp193576' with the existing Web App name
-  webAppName: 'flask-ml-app'
+  webAppName: 'flask-app-ml'
 
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
@@ -62,7 +61,7 @@ stages:
         deploy:
           steps:
           - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App : flask-ml-app'
+            displayName: 'Deploy Azure Web App : flask-app-ml'
             inputs:
               azureSubscription: $(azureServiceConnectionId)
               appName: $(webAppName)
