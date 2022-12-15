@@ -40,11 +40,10 @@ cd AzureDevops-Udacity/
 python3 -m venv ~/.myenv
 source ~/.myenv/bin/activate
 ```
-* Install all Python dependencies listed in the `requirements.txt` file
+* For the first part of project, we will implement CI with Github Actions with `github-action-ci` branch. 
 ```bash
-pip install -r requirements.txt
+git checkout github-action-ci
 ```
-> *Noted: Due to some recent updates, Azure Cloud Shell now has built-in Python 3.9 version. It may lead to conflicts when installing some specific Python dependencies listed in requirement file. To resolve that, you can temporary to remove specific version listed in the `requirements.txt` file when testing in local. But please be noted that our application will be built based on Python 3.7 in production environment. So please kindly do not change `requirements.txt` file when remote testing or deploy to Azure App Services.*
 
 * Run `make all` to install Python dependencies, lint and test code
 
