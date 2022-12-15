@@ -16,6 +16,9 @@ variables:
 
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
+  
+  # Python version
+  pythonVersion: '3.7'
 
 stages:
 - stage: Build
@@ -24,10 +27,17 @@ stages:
   - job: BuildJob
     pool: myAgentPool
     steps: 
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(pythonVersion)'
+      displayName: 'Use Python $(pythonVersion)'
+    
     - script: |
-        python3.7 -m pip install --upgrade pip
-        python3.7 -m pip install setup
-        python3.7 -m pip install -r requirements.txt
+        python -m venv myenv
+        source myenv/bin/activate
+        pip install --upgrade pip
+        pip install setup
+        pip install -r requirements.txt
       workingDirectory: $(projectRoot)
     - script: |
         export PATH=$HOME/.local/bin:$PATH
@@ -60,6 +70,11 @@ stages:
       runOnce:
         deploy:
           steps:
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '$(pythonVersion)'
+            displayName: 'Use Python $(pythonVersion)'
+
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App : flask-app-ml'
             inputs:
@@ -68,4 +83,4 @@ stages:
               package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
               appType: 'webAppLinux'
               startUpCommand: 'python3.7 app.py'
-              AppSettings: '-WEBSITES_CONTAINER_START_TIME_LIMIT 600 -WEBSITES_PORT 8000'
+              AppSettings: '-WEBSITES_CONTAINER_START_TIME_LIMIT 900 -WEBSITES_PORT 8000'
