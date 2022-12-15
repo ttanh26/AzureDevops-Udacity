@@ -105,4 +105,4 @@ Please follow these steps to successfully setup Continuous Delivery with Azure P
 
 [Part 1: Configure CI with Github Actions](https://youtu.be/kkExX3QVC6U)
 
-[Part 2: Configure CD using Azure Pipelines]()
+[Part 2: Configure CD using Azure Pipelines](https://youtu.be/_xFDS1eA0eI)
